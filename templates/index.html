@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flask Notes App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f2f2f2; }
+        .container { margin-top: 50px; }
+        .note-card { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center text-primary">My Notes</h1>
+
+        <form id="addNoteForm" class="mb-4">
+            <div class="input-group">
+                <input type="text" id="noteInput" class="form-control" placeholder="Enter note" required>
+                <button type="submit" class="btn btn-success">Add Note</button>
+            </div>
+        </form>
+
+        <div id="notesList" class="row">
+            <!-- Notes will appear here -->
+        </div>
+    </div>
+
+    <script>
+        async function fetchNotes() {
+            const res = await fetch('/notes');
+            const data = await res.json();
+            const notesList = document.getElementById('notesList');
+            notesList.innerHTML = '';
+            for (const id in data) {
+                const note = data[id];
+                const card = document.createElement('div');
+                card.className = 'col-md-4 note-card';
+                card.innerHTML = `
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <p class="card-text">${note}</p>
+                            <button onclick="deleteNote(${id})" class="btn btn-danger btn-sm">Delete</button>
+                        </div>
+                    </div>`;
+                notesList.appendChild(card);
+            }
+        }
+
+        async function addNote(note) {
+            await fetch('/notes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ note })
+            });
+            fetchNotes();
+        }
+
+        async function deleteNote(id) {
+            await fetch(`/notes/${id}`, { method: 'DELETE' });
+            fetchNotes();
+        }
+
+        document.getElementById('addNoteForm').addEventListener('submit', e => {
+            e.preventDefault();
+            const note = document.getElementById('noteInput').value;
+            addNote(note);
+            document.getElementById('noteInput').value = '';
+        });
+
+        fetchNotes();
+    </script>
+</body>
+</html>
+

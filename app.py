@@ -1,14 +1,15 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_jwt_extended import JWTManager, jwt_required, create_access_token
 from models import users, notes
 
 app = Flask(__name__)
-app.config["JWT_SECRET_KEY"] = "super-secret-key"  # change in production
+app.config["JWT_SECRET_KEY"] = "super-secret-key"
 jwt = JWTManager(app)
 
+# Serve HTML frontend
 @app.route("/")
 def home():
-    return jsonify({"message": "Welcome to Flask JWT API"}), 200
+    return render_template("index.html")
 
 # ---------- AUTH ----------
 @app.route("/register", methods=["POST"])
@@ -31,14 +32,12 @@ def login():
     token = create_access_token(identity=username)
     return jsonify(access_token=token), 200
 
-# ---------- PROTECTED ROUTES ----------
+# ---------- NOTES API ----------
 @app.route("/notes", methods=["GET"])
-@jwt_required()
 def get_notes():
     return jsonify(notes), 200
 
 @app.route("/notes", methods=["POST"])
-@jwt_required()
 def add_note():
     data = request.get_json()
     note_id = len(notes) + 1
@@ -46,7 +45,6 @@ def add_note():
     return jsonify({"message": "Note added", "id": note_id}), 201
 
 @app.route("/notes/<int:note_id>", methods=["DELETE"])
-@jwt_required()
 def delete_note(note_id):
     if note_id not in notes:
         return jsonify({"error": "Note not found"}), 404
@@ -55,3 +53,4 @@ def delete_note(note_id):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=3000)
+
