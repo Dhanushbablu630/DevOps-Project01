@@ -81,5 +81,5 @@ A Python application successfully:
 
 ---
 ## python application written in the project
-Give Wrote a python application which is just a simple notes webpage using flask.
+just Wrote a python application which is just a simple notes webpage using flask.
 
