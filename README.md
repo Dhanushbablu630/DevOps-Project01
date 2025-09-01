@@ -77,5 +77,9 @@ A Python application successfully:
 1. **Pushed to GitHub**  
 2. **Built & containerized via Jenkins**  
 3. **Pushed to DockerHub automatically**  
-4. Ready to be **deployed anywhere** by pulling the image  
+4. Ready to be **deployed anywhere** by pulling the image
+
+---
+## python application written in the project
+Give Wrote a python application which is just a simple notes webpage using flask.
 
