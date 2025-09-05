@@ -92,4 +92,5 @@ just Wrote a python application which is just a simple notes webpage using flask
 <img width="1755" height="708" alt="Image" src="https://github.com/user-attachments/assets/2ce86e07-13dc-4a91-9382-416a46208669" />
 
 ---
-https://github.com/user-attachments/assets/9c296dd9-69f6-4016-bf6c-6afa7346e896
+#Small Clip of the Project
+https://github.com/user-attachments/assets/3ed814a1-ae5d-4f0f-b5b3-fb383cf6dc2a
