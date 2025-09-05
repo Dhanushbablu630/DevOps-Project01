@@ -14,6 +14,7 @@ The focus is not on the application itself, but on automating the **build, conta
   - **Port 22 (SSH)**
   - **Port 8080 (Jenkins)**
   - **Port 3000 (App – optional)**
+  - <img width="1830" height="705" alt="Image" src="https://github.com/user-attachments/assets/4504983c-a71d-4d1c-9b8f-935098160365" />
 
 ### 2. Installed Required Tools
 - Installed **Docker** for containerization.  
